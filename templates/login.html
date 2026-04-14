@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/login.css">
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="container">
+        <div>
+            <h2>Login</h2>
+        </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+        <form method="POST" action="{{ url_for('auth.login') }}">
+            <div>
+                <label>Email</label>
+                <input type="email" name="email"  placeholder="exemplo@email.com" required>
+            </div>
+
+            <div>
+                <label>Senha</label>
+                <input type="password" name="senha"  placeholder="••••••••" required>
+            </div>
+
+            <div>
+                <button type="submit">Entrar</button>
+            </div>
+        </form>
+    
+    <a href="{{ url_for('auth.cadastrar_usuario') }}" style="text-decoration: none;">
+        <button class="btn-cadastro" type="button">
+            ➕ Criar Novo Usuário
+        </button>
+    </a>
+    </div>
+</body>
+</html>

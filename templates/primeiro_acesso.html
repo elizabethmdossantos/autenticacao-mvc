@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/primeiro_acesso.css">
+    <title>Primeiro Acesso</title>
+</head>
+
+<body>
+    <div class="container">
+        <div>
+            <h2>Primeiro Acesso</h2>
+            <p>Olá! Defina seus dados para começar.</p>
+        </div>
+
+        <form method="POST" action="/configurar-acesso">
+            <div>
+                <label>Email</label>
+                <input type="text" name="nome" placeholder="Seu email" required>
+            </div>
+
+            <div>
+                <label>Criar Nova Senha</label>
+                <input type="password" name="nova_senha" placeholder="No mínimo 8 caracteres" required>
+            </div>
+
+            <div>
+                <label>Confirmar Senha</label>
+                <input type="password" name="confirmar_senha" placeholder="Repita a senha" required>
+            </div>
+
+            <div>
+                <button type="submit">Ativar Minha Conta</button>
+                <a href="/login">Voltar para o Login</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
