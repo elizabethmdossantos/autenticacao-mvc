@@ -5,19 +5,15 @@ from datetime import datetime
 
 class UsuarioModel:
 
-    def __init__(self):
-        # Método construtor: define onde o banco de dados está.
-        # Em vez de conectar logo de cara, guardamos as configurações.
-        self.connection_config = {
+    def __init__(self, config=None):
+        self.connection_config = config or {
             'host': 'localhost',
-            'user': 'mickey',
+            'user': 'root',
             'password': 'admin',
             'database': 'sistema_autenticacao'
         }
 
     def _get_connection(self):
-        # Método auxiliar (privado) para abrir uma nova conexão.
-        # O desempacotamento (**self.connection_config) transforma o dicionário em argumentos para a função connect().
         try:
             connection = mysql.connector.connect(**self.connection_config)
             return connection
@@ -33,6 +29,31 @@ class UsuarioModel:
             if check_password_hash(usuario['senha'], senha_digitada):
                 return True
         return False
+
+    def criar_usuario(self, nome, email, senha):
+        connection = self._get_connection()
+        if not connection: return
+        
+        hashed_senha = generate_password_hash(senha)
+        try:
+            cursor = connection.cursor()
+            query = "INSERT INTO usuarios (nome, email, senha) VALUES (%s, %s, %s)"
+            cursor.execute(query, (nome, email, hashed_senha))
+            connection.commit()
+        except Error as e:
+            print(f"Erro ao criar usuário: {e}")
+        finally:
+            cursor.close()
+            connection.close()
+            
+    def listar_todos(self):
+        connection = self._get_connection()
+        try:
+            cursor = connection.cursor(dictionary=True)
+            cursor.execute("SELECT id, nome, email, ativo, ultimo_login FROM usuarios")
+            return cursor.fetchall()
+        finally:
+            connection.close()
 
     def buscar_usuario(self, email):
         # SELECT: Busca todos os dados de um usuário pelo e-mail.

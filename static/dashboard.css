@@ -1,127 +1,57 @@
-/* Configurações Gerais */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
 body {
+    font-family: Arial, sans-serif;
     background-color: #f8f9fa;
-    color: #333;
-    min-height: 100vh;
+    margin: 0;
 }
 
-/* Layout Principal */
 .container {
-    display: flex;
-    min-height: 100vh;
+    max-width: 800px;
+    margin: 50px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
-/* Barra Lateral (Menu) */
-.container > div:first-child {
-    width: 250px;
-    background-color: #054e9b;
-    padding: 2rem 1rem;
-    color: white;
-}
-
-.container > div:first-child ul {
+ul {
     list-style: none;
-    margin-top: 2rem;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
 }
 
-.container > div:first-child li {
-    margin-bottom: 0.5rem;
-}
-
-/* Links do Menu */
-.container > div:first-child a {
-    color: #adb5bd;
+ul li a {
     text-decoration: none;
-    display: block;
-    padding: 0.8rem 1rem;
-    border-radius: 6px;
-    transition: all 0.3s ease;
+    color: #555;
     font-weight: 500;
 }
 
-.container > div:first-child a:hover {
-    background-color: #495057;
-    color: #ffffff;
-    transform: translateX(5px);
-}
+ul li a:hover { color: #007bff; }
 
-/* Botão de Logout Específico */
-#logoutBtn {
-    color: #ff6b6b;
-    margin-top: 2rem;
-    border: 1px solid rgba(255, 107, 107, 0.3);
-}
+h1 { color: #2c3e50; }
 
-#logoutBtn:hover {
-    background-color: #fa5252;
+.menu-btn {
+    padding: 10px 20px;
+    background-color: #6c757d;
     color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-/* Área de Conteúdo Principal */
-.container > div:last-child {
-    flex-grow: 1;
-    padding: 3rem;
-    background-color: #ffffff;
+.logout-btn {
+    display: inline-block;
+    color: #dc3545;
+    font-weight: bold;
+    border: 1px solid #dc3545;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: 0.3s;
 }
 
-h1 {
-    font-size: 2.5rem;
-    color: #212529;
-    margin-bottom: 0.5rem;
-}
-
-p {
-    font-size: 1.1rem;
-    color: #6c757d;
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-    }
-
-    .container > div:first-child {
-        width: 100%;
-        padding: 1rem;
-    }
-
-    .container > div:first-child ul {
-        display: flex;
-        justify-content: space-around;
-        margin-top: 0;
-    }
-
-    .container > div:last-child {
-        padding: 2rem 1.5rem;
-    }
-
-    #logoutBtn {
-        margin-top: 0;
-    }
-}
-
-.flash { 
-    padding: 10px; 
-    margin: 10px 0; 
-    border-radius: 4px; 
-}
-.success { 
-    background: #d4edda; 
-    color: #155724; 
-}
-.error { 
-    background: #f8d7da; 
-    color: #721c24; 
-}
-.info { 
-    background: #d1ecf1; 
-    color: #0c5460; 
+.logout-btn:hover {
+    background-color: #dc3545;
+    color: white;
 }

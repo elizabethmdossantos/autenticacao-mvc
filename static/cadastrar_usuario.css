@@ -1,0 +1,119 @@
+/* static/cadastrar_usuario.css */
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+}
+
+h2 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+form {
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    color: #546e7a;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 18px;
+    border: 2px solid #eceff1;
+    border-radius: 8px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+    font-size: 1rem;
+}
+
+input:focus {
+    outline: none;
+    border-color: #28a745; /* Cor verde para indicar criação/positivo */
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    background-color: #28a745;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s transform 0.2s;
+}
+
+button:hover {
+    background-color: #218838;
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.voltar {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #546e7a;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.voltar:hover {
+    color: #2c3e50;
+    text-decoration: underline;
+}
+
+/* Sistema de Alertas (Flash Messages) */
+.flash {
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-left: 5px solid transparent;
+}
+
+.danger {
+    background-color: #fce4e4;
+    color: #c62828;
+    border-left-color: #c62828;
+}
+
+.success {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border-left-color: #2e7d32;
+}
+
+.warning {
+    background-color: #fff3e0;
+    color: #ef6c00;
+    border-left-color: #ef6c00;
+}

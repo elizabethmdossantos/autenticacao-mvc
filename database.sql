@@ -1,13 +1,16 @@
--- Criar banco de dados
-CREATE DATABASE IF NOT EXISTS sistema_auth CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE sistema_auth;
+CREATE DATABASE sistema_autenticacao;
 
--- Tabela de usuários conforme especificação
+USE sistema_autenticacao;
+
 CREATE TABLE IF NOT EXISTS usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL, -- Adicionado
     email VARCHAR(100) UNIQUE NOT NULL,
     senha VARCHAR(255) NOT NULL,
     ativo BOOLEAN DEFAULT TRUE,
     tentativas_login INT DEFAULT 0,
     ultimo_login DATETIME NULL
 );
+
+INSERT INTO usuarios (nome, email, senha) 
+VALUES ('Administrador', 'admin@email.com', 'COLE_O_HASH_GERADO_AQUI');

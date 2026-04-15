@@ -3,10 +3,20 @@ from models.usuario_model import UsuarioModel
 
 def init_controller(mysql):
     auth_bp = Blueprint('auth', __name__)
-    usuario_model = UsuarioModel() 
+
+    db_config = {
+        'host': mysql.app.config['MYSQL_HOST'],
+        'user': mysql.app.config['MYSQL_USER'],
+        'password': mysql.app.config['MYSQL_PASSWORD'],
+        'database': mysql.app.config['MYSQL_DB']
+    }
+    usuario_model = UsuarioModel(db_config)
 
     @auth_bp.route('/login', methods=['GET', 'POST'])
     def login():
+        if 'usuario_id' in session:
+            return redirect(url_for('auth.dashboard'))
+        
         if request.method == 'POST':
             email = request.form.get('email')
             senha = request.form.get('senha')
@@ -34,15 +44,56 @@ def init_controller(mysql):
                 tentativas = usuario['tentativas_login'] + 1
                 usuario_model.atualizar_tentativas(email, tentativas)
 
-                if tentativas >= 5:
+                if tentativas >= 3:
                     usuario_model.desativar_usuario(email)
                     flash("Senha incorreta. Sua conta foi BLOQUEADA por segurança!", "danger")
                 else:
-                    flash(f"Senha incorreta! Tentativa {tentativas} de 5.", "info")
+                    flash(f"Senha incorreta! Tentativa {tentativas} de 3.", "info")
                 
                 return redirect(url_for('auth.login'))
 
         return render_template('login.html')
+    
+    @auth_bp.route('/cadastrar', methods=['GET', 'POST'])
+    def cadastrar_usuario():
+        if request.method == 'POST':
+            email = request.form.get('email')
+            senha = request.form.get('senha')
+            confirmar = request.form.get('confirmar_senha')
+
+            if senha != confirmar:
+                flash("As senhas não coincidem!", "danger")
+                return redirect(url_for('auth.cadastrar_usuario'))
+
+            # Verifica se o e-mail já existe
+            if usuario_model.buscar_usuario(email):
+                flash("Este e-mail já está cadastrado!", "warning")
+                return redirect(url_for('auth.cadastrar_usuario'))
+
+            # No cadastro, o campo 'nome' pode ser extraído do e-mail ou pedido no form
+            nome = email.split('@')[0].capitalize() 
+            
+            usuario_model.criar_usuario(nome, email, senha)
+            flash("Conta criada com sucesso! Faça login.", "success")
+            return redirect(url_for('auth.login'))
+
+        return render_template('cadastrar_usuario.html')
+
+    @auth_bp.route('/usuarios')
+    def lista_usuarios():
+        if 'usuario_id' not in session:
+            return redirect(url_for('auth.login'))
+        
+        # Você precisaria criar este método no Model para listar todos
+        usuarios = usuario_model.listar_todos()
+        return render_template('lista_usuarios.html', usuarios=usuarios)
+    
+    @auth_bp.route('/dashboard')
+    def dashboard():
+        if 'usuario_id' not in session:
+            flash("Faça login para acessar esta página.", "warning")
+            return redirect(url_for('auth.login'))
+        return (f"Bem-vindo, {session['usuario_nome']}! <a href='/logout'>Sair</a>")
 
     @auth_bp.route('/logout')
     def logout():

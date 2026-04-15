@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/primeiro_acesso.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='primeiro_acesso.css') }}">
     <title>Primeiro Acesso</title>
 </head>
 
@@ -14,7 +14,7 @@
             <p>Olá! Defina seus dados para começar.</p>
         </div>
 
-        <form method="POST" action="/configurar-acesso">
+        <form method="POST" action="{{ url_for('auth.trocar_senha') }}">
             <div>
                 <label>Email</label>
                 <input type="text" name="nome" placeholder="Seu email" required>

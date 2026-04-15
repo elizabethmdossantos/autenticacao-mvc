@@ -1,109 +1,69 @@
-/* Configurações Gerais */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
 body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f0f2f5;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    width: 100vw;
+    margin: 0;
 }
 
-/* Container do Card de Login */
 .container {
-    background-color: #ffffff;
-    padding: 2.5rem;
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     width: 100%;
     max-width: 400px;
-}
-
-/* Título */
-h2 {
     text-align: center;
-    color: #333;
-    margin-bottom: 1.5rem;
-    font-size: 1.8rem;
 }
 
-/* Espaçamento dos blocos do formulário */
-form div {
-    margin-bottom: 1.2rem;
-}
+h2 { color: #333; margin-bottom: 1.5rem; }
 
-/* Rótulos (Labels) */
-label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: #555;
-    font-weight: 600;
-    font-size: 0.9rem;
-}
+form { text-align: left; }
 
-/* Campos de Input */
+label { display: block; margin-bottom: 5px; color: #666; font-weight: bold; }
+
 input {
     width: 100%;
-    padding: 0.8rem;
+    padding: 10px;
+    margin-bottom: 15px;
     border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 4px;
+    box-sizing: border-box; /* Garante que o padding não quebre a largura */
 }
 
-input:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-}
-
-/* Botão de Enviar */
 button {
     width: 100%;
-    padding: 0.8rem;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
     background-color: #007bff;
     color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 1rem;
-    font-weight: bold;
+    font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 0.5rem;
+    transition: background 0.3s;
 }
 
-button:hover {
-    background-color: #0056b3;
+button:hover { background-color: #0056b3; }
+
+.btn-cadastro {
+    background-color: #28a745;
+    margin-top: 10px;
 }
 
-/* Responsividade simples */
-@media (max-width: 480px) {
-    .container {
-        margin: 1rem;
-        padding: 1.5rem;
-    }
-}
+.btn-cadastro:hover { background-color: #218838; }
 
-.flash { 
-    padding: 10px; 
-    margin: 10px 0; 
-    border-radius: 4px; 
+.voltar { display: block; margin-top: 15px; font-size: 14px; color: #007bff; text-decoration: none; }
+
+/* Estilo para as mensagens Flash */
+.flash {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    font-size: 14px;
 }
-.success { 
-    background: #d4edda; 
-    color: #155724; 
-}
-.error { 
-    background: #f8d7da; 
-    color: #721c24; 
-}
-.info { 
-    background: #d1ecf1; 
-    color: #0c5460; 
-}
+.danger { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+.success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+.warning { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+.info { background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
