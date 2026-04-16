@@ -74,26 +74,23 @@ def init_controller(app):
     @auth_bp.route('/cadastrar', methods=['GET', 'POST'])
     def cadastrar_usuario():
         if request.method == 'POST':
+            nome = request.form.get('nome')
             email = request.form.get('email')
             senha = request.form.get('senha')
-            confirmar = request.form.get('confirmar_senha')
-
-            if senha != confirmar:
-                flash("As senhas não coincidem!", "danger")
-                return redirect(url_for('auth.cadastrar_usuario'))
 
             if usuario_model.buscar_usuario(email):
                 flash("Este e-mail já está cadastrado!", "warning")
                 return redirect(url_for('auth.cadastrar_usuario'))
-
-            nome = email.split('@')[0].capitalize() 
+            
+            if not nome:
+                nome = email.split('@')[0].capitalize() 
             usuario_model.criar_usuario(nome, email, senha)
             flash("✅ Conta criada com sucesso! Faça login.", "success")
-            return redirect(url_for('auth.login'))
+            return redirect(url_for('auth.primeiro_acesso'))
 
         return render_template('cadastrar_usuario.html')
 
-    @auth_bp.route('/primeiro-acesso', methods=['GET', 'POST'])
+    @auth_bp.route('/primeiro_acesso', methods=['GET', 'POST'])
     @login_required
     def primeiro_acesso():
         if request.method == 'POST':

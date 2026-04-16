@@ -20,14 +20,14 @@
     {% endwith %}
     
     <form method="POST" action="{{ url_for('auth.cadastrar_usuario') }}">
+        <label>Nome:</label>
+        <input type="text" name="nome" placeholder="Digite seu nome" required>
+        
         <label>Email:</label>
-        <input type="email" name="email" placeholder="exemplo@empresa.com" required>
+        <input type="email" name="email" placeholder="Digite seu email" required>
         
         <label>Senha:</label>
-        <input type="password" name="senha" placeholder="Digite uma senha segura" required minlength="6">
-        
-        <label>Confirmar senha:</label>
-        <input type="password" name="confirmar_senha" placeholder="Repita a senha" required>
+        <input type="password" name="senha" placeholder="Digite sua senha" required>
         
         <button type="submit">Criar Conta</button>
     </form>
