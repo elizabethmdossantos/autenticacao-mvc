@@ -8,6 +8,5 @@ class Config:
     MYSQL_USER = 'root'
     MYSQL_PASSWORD = 'admin'  
     MYSQL_DB = 'sistema_autenticacao'
-    MYSQL_CURSORCLASS = 'DictCursor'
     
     MAX_TENTATIVAS = 3
