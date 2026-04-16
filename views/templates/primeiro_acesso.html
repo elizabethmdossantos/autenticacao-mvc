@@ -19,7 +19,7 @@
             {% endfor %}{% endif %}
         {% endwith %}
 
-        <form method="POST" action="{{ url_for('auth.trocar_senha') }}">
+        <form method="POST" action="{{ url_for('auth.primeiro_acesso') }}">
             <div>
                 <label>Email</label>
                 <input type="text" name="nome" placeholder="Seu email" required>

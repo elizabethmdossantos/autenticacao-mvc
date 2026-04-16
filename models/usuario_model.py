@@ -22,8 +22,6 @@ class UsuarioModel:
             return None
 
     def verificar_senha(self, email, senha_digitada):
-        # Lógica de Login: Busca o usuário no banco e usa a Werkzeug para 
-        # comparar a senha digitada com o hash criptografado.
         usuario = self.buscar_usuario(email)
         if usuario:
             if check_password_hash(usuario['senha'], senha_digitada):
@@ -56,15 +54,13 @@ class UsuarioModel:
             connection.close()
 
     def buscar_usuario(self, email):
-        # SELECT: Busca todos os dados de um usuário pelo e-mail.
-        # O parâmetro 'dictionary=True' faz o MySQL retornar os dados como um dicionário do Python (ex: usuario['nome']), o que é muito mais fácil de usar.
         connection = self._get_connection()
         if not connection: return None
         
         try:
             cursor = connection.cursor(dictionary=True)
-            cursor.execute("SELECT * FROM usuarios WHERE email = %s", (email,)) # O '%s' evita SQL Injection (ataque hacker)
-            return cursor.fetchone() # Retorna apenas um resultado
+            cursor.execute("SELECT * FROM usuarios WHERE email = %s", (email,))
+            return cursor.fetchone()
         except Error as e:
             print(f"Erro ao buscar usuário: {e}")
         finally:
@@ -72,15 +68,13 @@ class UsuarioModel:
             connection.close()
 
     def atualizar_tentativas(self, email, tentativas):
-        # UPDATE: Atualiza quantas vezes o usuário errou a senha.
-        # Útil para bloquear a conta após X tentativas.
         connection = self._get_connection()
         if not connection: return
         
         try:
             cursor = connection.cursor()
             cursor.execute("UPDATE usuarios SET tentativas_login = %s WHERE email = %s", (tentativas, email))
-            connection.commit() # Salva as alterações no banco
+            connection.commit()
         except Error as e:
             print(f"Erro ao atualizar tentativas: {e}")
         finally:
@@ -88,8 +82,6 @@ class UsuarioModel:
             connection.close()
 
     def desativar_usuario(self, email):
-        # Soft Delete: Em vez de apagar o usuário, apenas mudamos o status para 'Inativo'.
-        # Isso mantém o histórico de dados no seu sistema.
         connection = self._get_connection()
         if not connection: return
         
@@ -104,7 +96,6 @@ class UsuarioModel:
             connection.close()
 
     def atualizar_ultimo_login(self, email):
-        # UPDATE: Grava o momento exato do login e zera as tentativas de erro.
         connection = self._get_connection()
         if not connection: return
         
@@ -122,9 +113,7 @@ class UsuarioModel:
             connection.close()
 
     def trocar_senha(self, email, nova_senha):
-        # SEGURANÇA: Transforma a senha em um Hash (embaralhado) antes de salvar.
-        # Mesmo que alguém acesse o banco, não saberá a senha real.
-        hashed = generate_password_hash(nova_senha) #criptografia da senha
+        hashed = generate_password_hash(nova_senha)
         connection = self._get_connection()
         if not connection: return
         
@@ -132,7 +121,7 @@ class UsuarioModel:
             cursor = connection.cursor()
             cursor.execute("UPDATE usuarios SET senha = %s WHERE email = %s", (hashed, email))
             connection.commit()
-            self.atualizar_ultimo_login(email) # reutiliza  a função de login para atualizar o timestamp
+            self.atualizar_ultimo_login(email)
         except Error as e:
             print(f"Erro ao trocar senha: {e}")
         finally:
