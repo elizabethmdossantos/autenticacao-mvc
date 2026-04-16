@@ -91,7 +91,6 @@ def init_controller(app):
         return render_template('cadastrar_usuario.html')
 
     @auth_bp.route('/primeiro_acesso', methods=['GET', 'POST'])
-    @login_required
     def primeiro_acesso():
         if request.method == 'POST':
             nova_senha = request.form.get('nova_senha')
